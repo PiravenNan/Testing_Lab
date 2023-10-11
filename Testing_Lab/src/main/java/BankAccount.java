@@ -8,7 +8,7 @@ public class BankAccount {
     private String lastName;
     private LocalDate dateOfBirth;
     private int accountNumber;
-    private float balance;
+    private int balance;
 
     //constructor
     public BankAccount(String firstName, String lastName, LocalDate dateOfBirth){
@@ -19,16 +19,16 @@ public class BankAccount {
         this.balance = 0;
     }
 
-    public void deposit (float amount) {
+    public void deposit (int amount) {
         this.balance += amount;
     }
 
-    public void withdraw(float amount){
+    public void withdraw(int amount){
         this.balance -= amount;
     }
 
     public void payInterest(){
-        this.balance *= 1.05F;
+        this.balance *= 1.05;
     }
 
     //getters
