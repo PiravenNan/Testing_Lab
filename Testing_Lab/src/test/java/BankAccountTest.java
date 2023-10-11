@@ -22,12 +22,14 @@ public class BankAccountTest {
     void withdrawTest(){
         //given
         BankAccount bankAccount = new BankAccount("John","Smith", LocalDate.parse("2000-06-16"));
-        bankAccount.withdraw(1001);
+        String resultMessage = bankAccount.withdraw(1001);
         //when
         int result = bankAccount.getBalance();
         //then
-        int expected = -1001;
+        int expected = 0;
+        String expectedMessage = "Couldn't withdraw: Account balance would fall below overdraft limit";
         assertThat(result).isEqualTo(expected);
+        assertThat(resultMessage).isEqualTo(expectedMessage);
     }
 
     @Test
@@ -36,11 +38,12 @@ public class BankAccountTest {
         //given
         BankAccount bankAccount = new BankAccount("John","Smith", LocalDate.parse("2000-06-16"));
         bankAccount.deposit(100);
+        bankAccount.setAccountType("Current");
         bankAccount.payInterest();
         //when
         int result = bankAccount.getBalance();
-        //then
-        int expected = 105;
+        //thengst
+        int expected = 150;
         assertThat(result).isEqualTo(expected);
     }
 }

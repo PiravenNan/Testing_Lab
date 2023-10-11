@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class BankAccount {
 
@@ -9,6 +10,11 @@ public class BankAccount {
     private LocalDate dateOfBirth;
     private int accountNumber;
     private int balance;
+    private String accountType;
+    private int overdraft;
+    HashMap<String, Double> interestHashMap;// = new HashMap<>();
+
+    //interestHashMap.put("Savers",1.05);
 
     //constructor
     public BankAccount(String firstName, String lastName, LocalDate dateOfBirth){
@@ -17,18 +23,27 @@ public class BankAccount {
         this.dateOfBirth = dateOfBirth;
         this.accountNumber = 0;
         this.balance = 0;
+        this.accountType = "Savings";
+        this.overdraft = 0;
+        this.interestHashMap = new HashMap<>();
+        this.interestHashMap.put("Savings",1.05);
+        this.interestHashMap.put("Current",1.5);
     }
 
     public void deposit (int amount) {
         this.balance += amount;
     }
 
-    public void withdraw(int amount){
-        this.balance -= amount;
+    public String withdraw(int amount){
+        if(this.balance - amount >= overdraft){
+            this.balance -= amount;
+            return "Withdraw successful";
+        }
+        return "Couldn't withdraw: Account balance would fall below overdraft limit";
     }
 
     public void payInterest(){
-        this.balance *= 1.05;
+        this.balance *= this.interestHashMap.get(this.accountType);
     }
 
     //getters
@@ -52,6 +67,14 @@ public class BankAccount {
         return dateOfBirth;
     }
 
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public int getOverdraft() {
+        return overdraft;
+    }
+
     //setters
     public void setFirstName(String firstName){
         this.firstName = firstName;
@@ -71,6 +94,14 @@ public class BankAccount {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public void setOverdraft(int overdraft) {
+        this.overdraft = overdraft;
     }
 
 
