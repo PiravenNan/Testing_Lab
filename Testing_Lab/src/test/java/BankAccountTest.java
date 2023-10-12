@@ -30,7 +30,7 @@ public class BankAccountTest {
 
     @Test
 
-    void withdrawTest(){
+    void withdrawFailTest(){
         //given
         String resultMessage = bankAccount.withdraw(1001);
         //when
@@ -38,6 +38,21 @@ public class BankAccountTest {
         //then
         int expected = 0;
         String expectedMessage = "Couldn't withdraw: Account balance would fall below overdraft limit";
+        assertThat(result).isEqualTo(expected);
+        assertThat(resultMessage).isEqualTo(expectedMessage);
+    }
+
+    @Test
+
+    void withdrawSuccessTest(){
+        bankAccount.setOverdraft(-2000);
+        //given
+        String resultMessage = bankAccount.withdraw(1001);
+        //when
+        int result = bankAccount.getBalance();
+        //then
+        int expected = -1001;
+        String expectedMessage = "Withdraw successful";
         assertThat(result).isEqualTo(expected);
         assertThat(resultMessage).isEqualTo(expectedMessage);
     }
