@@ -12,7 +12,7 @@ public class BankAccount {
     private int balance;
     private String accountType;
     private int overdraft;
-    HashMap<String, Double> interestHashMap;// = new HashMap<>();
+    //HashMap<String, Double> interestHashMap;// = new HashMap<>();
 
     //interestHashMap.put("Savers",1.05);
 
@@ -25,9 +25,9 @@ public class BankAccount {
         this.balance = 0;
         this.accountType = "Savings";
         this.overdraft = 0;
-        this.interestHashMap = new HashMap<>();
-        this.interestHashMap.put("Savings",1.05);
-        this.interestHashMap.put("Current",1.5);
+
+//        this.interestHashMap.put("Savings",1.05);
+//        this.interestHashMap.put("Current",1.5);
     }
 
     public void deposit (int amount) {
@@ -42,8 +42,8 @@ public class BankAccount {
         return "Couldn't withdraw: Account balance would fall below overdraft limit";
     }
 
-    public void payInterest(){
-        this.balance *= this.interestHashMap.get(this.accountType);
+    public void payInterest(double interestRate){
+        this.balance *= interestRate;//this.interestHashMap.get(this.accountType);
     }
 
     //getters
